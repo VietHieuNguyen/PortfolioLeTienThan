@@ -1,0 +1,20 @@
+{
+  "FaceBook" : "https://www.facebook.com/than.than.136521/about",
+  "LinkedIn": "https://www.linkedin.com/in/thantienle/",
+  "Gmail": "lethan0811@gmail.com",
+  "Name": "Lê Tiến Thân",
+  "Major": "Thương mại điện tử",
+  "University": "HCMUTE (Trường Đại Học Công nghệ Kỹ Thuật TP. HCM)",
+  "Project":[{
+    "Name": "Nền tảng bán hàng ECoV",
+    "Description": "Thiết kế và phát triển giao diện website thương mại điện tử tập trung vào trải nghiệm mua sắm trực quan và tối ưu tỷ lệ chuyển đổi.",
+    "Image": "images/project-1.jpg",
+    "Tags": ["ADS, Customer"]
+  },
+    {
+    "Name": "Quảng cáo Facebook",
+    "Description": "Chạy quảng cáo",
+    "Image": "images/project-2.jpg",
+    "Tags": ["ADS, Customer"]
+  }]
+}
