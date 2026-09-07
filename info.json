@@ -16,5 +16,23 @@
     "Description": "Chạy quảng cáo",
     "Image": "images/project-2.jpg",
     "Tags": ["ADS, Customer"]
-  }]
+  }],
+  "Experience": [
+    {
+      "Period": "01/05 - 01/08",
+      "Role": "Website Content Intern",
+      "Company": "Công ty Cổ phần Mỹ phẩm Sài Gòn (SCC)",
+      "Website": "https://shop.saigoncosmetics.com/",
+      "Brands": ["SCC Shop", "DYNIK"],
+      "Responsibilities": [
+        "Setup, quản lý và cập nhật nội dung website bán hàng của SCC.",
+        "Hỗ trợ lên ý tưởng và xây dựng nội dung cho fanpage thương hiệu.",
+        "Phản hồi tin nhắn, bình luận và chăm sóc khách hàng trên các fanpage của brand.",
+        "Lập lệnh điều động hàng hóa cho brand DYNIK (vận hành kênh TikTok Shop).",
+        "Hỗ trợ triển khai các chương trình khuyến mãi định kỳ cho brand DYNIK.",
+        "Hỗ trợ lên định hướng nội dung video TikTok cho brand DYNIK theo tháng."
+      ],
+      "Tags": ["Website CMS", "E-Commerce", "TikTok Shop", "Content Marketing", "Social Media", "Customer Care"]
+    }
+  ]
 }

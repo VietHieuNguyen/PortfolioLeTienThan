@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   setupMobileMenu();
+  setupActiveNav();
+  setupExperienceProofToggle();
   setupContactForm();
   setupScrollReveal();
   setupBackToTop();
@@ -185,5 +187,168 @@ function setupBackToTop() {
 
   btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+/* ===== ACTIVE NAV & SCROLLSPY ===== */
+function setupActiveNav() {
+  const nav = document.querySelector(".header .nav");
+  if (!nav) return;
+
+  const navLinks = Array.from(nav.querySelectorAll("a"));
+  const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  const isAboutPage = currentPath.includes("about");
+  const isIndexPage = currentPath.includes("index") || currentPath === "" || currentPath === "/";
+
+  const setActiveLink = (targetLink) => {
+    if (!targetLink) return;
+    navLinks.forEach((link) => link.classList.remove("active"));
+    targetLink.classList.add("active");
+  };
+
+  const findLinkByHash = (hash) => {
+    if (!hash) return null;
+    return navLinks.find((link) => {
+      const href = link.getAttribute("href") || "";
+      return href === hash || href.endsWith(hash);
+    });
+  };
+
+  const getDefaultLink = () => {
+    if (isAboutPage) {
+      return navLinks.find((link) => link.getAttribute("href") === "about.html");
+    }
+    if (isIndexPage) {
+      return navLinks.find((link) => link.getAttribute("href") === "index.html");
+    }
+    return navLinks.find((link) => link.getAttribute("href") === currentPath);
+  };
+
+  const updateActiveFromHash = () => {
+    const hash = window.location.hash;
+    if (hash) {
+      const match = findLinkByHash(hash);
+      if (match) {
+        setActiveLink(match);
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // Initial check on page load
+  if (!updateActiveFromHash()) {
+    const defaultLink = getDefaultLink();
+    if (defaultLink && !nav.querySelector("a.active")) {
+      setActiveLink(defaultLink);
+    }
+  }
+
+  // Click handler on navigation links
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      const href = this.getAttribute("href") || "";
+
+      if (href === "about.html" && isAboutPage) {
+        if (window.location.hash) {
+          history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setActiveLink(this);
+        e.preventDefault();
+      } else if (href === "index.html" && isIndexPage) {
+        if (window.location.hash) {
+          history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setActiveLink(this);
+        e.preventDefault();
+      } else if (href.startsWith("#")) {
+        setActiveLink(this);
+      } else if (href.includes("#")) {
+        const [page, hash] = href.split("#");
+        if ((page === "index.html" && isIndexPage) || (page === "about.html" && isAboutPage)) {
+          setActiveLink(this);
+        }
+      }
+    });
+  });
+
+  window.addEventListener("hashchange", updateActiveFromHash);
+
+  // ScrollSpy for sections on the current page
+  const sectionsToCheck = [];
+  const expSection = document.getElementById("experience");
+  const projSection = document.getElementById("projects");
+
+  // On index page: Experience is above Projects
+  if (expSection) sectionsToCheck.push({ id: "experience", el: expSection });
+  if (projSection) sectionsToCheck.push({ id: "projects", el: projSection });
+
+  if (sectionsToCheck.length > 0) {
+    let isClickScrolling = false;
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        isClickScrolling = true;
+        setTimeout(() => {
+          isClickScrolling = false;
+        }, 900);
+      });
+    });
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (isClickScrolling) return;
+
+        const scrollPos = window.scrollY + 220;
+
+        // If user scrolls back near the top
+        if (window.scrollY < 200) {
+          const defaultLink = getDefaultLink();
+          if (defaultLink) setActiveLink(defaultLink);
+          return;
+        }
+
+        for (let i = sectionsToCheck.length - 1; i >= 0; i--) {
+          const { id, el } = sectionsToCheck[i];
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            const matched = findLinkByHash("#" + id);
+            if (matched) setActiveLink(matched);
+            break;
+          }
+        }
+      },
+      { passive: true }
+    );
+  }
+}
+
+/* ===== EXPERIENCE PROOF TOGGLE ===== */
+function setupExperienceProofToggle() {
+  const toggleButtons = document.querySelectorAll(".experience-proof-toggle");
+  if (!toggleButtons.length) return;
+
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const card = this.closest(".experience-card");
+      if (!card) return;
+
+      const wrapper = card.querySelector(".experience-proof-wrapper");
+      if (!wrapper) return;
+
+      const isExpanded = this.classList.toggle("active");
+      wrapper.classList.toggle("show");
+      this.setAttribute("aria-expanded", String(isExpanded));
+
+      if (isExpanded) {
+        this.innerHTML = '<i class="fa-regular fa-eye-slash"></i> Thu gọn <i class="fa-solid fa-chevron-down"></i>';
+      } else {
+        this.innerHTML = '<i class="fa-regular fa-eye"></i> Xem chi tiết <i class="fa-solid fa-chevron-down"></i>';
+      }
+    });
   });
 }
