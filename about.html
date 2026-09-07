@@ -142,25 +142,22 @@
               </div>
 
               <div class="experience-proof-heading" style="margin-top: 20px;">
-                <h4><i class="fa-solid fa-camera"></i> Ảnh minh chứng hoạt động:</h4>
-                <span>Tỉ lệ chuẩn 16:9</span>
+                <h4>Ảnh hoạt động:</h4>
               </div>
               <div class="proof-grid">
-                <!-- Khung Skeleton Mẫu 1 (Sau này thay <div class="skeleton-16-9"> bằng thẻ <img>) -->
-                <div class="proof-item">
-                  <div class="skeleton-16-9">
-                    <i class="fa-regular fa-image skeleton-icon"></i>
-                    <div class="skeleton-title">Minh chứng Website & CMS</div>
-                    <div class="skeleton-desc">Khung ảnh 16:9 - Chèn ảnh quản trị nội dung website SCC</div>
+                <div class="proof-item" data-fullsrc="images/scc.png" data-caption="Website & Quản trị CMS - SCC Shop (shop.saigoncosmetics.com)">
+                  <img src="images/scc.png" alt="Website & Quản trị CMS - SCC Shop" loading="lazy">
+                  <span class="proof-zoom-badge"><i class="fa-solid fa-magnifying-glass-plus"></i> Phóng to xem chi tiết</span>
+                  <div class="proof-caption">
+                    <i class="fa-solid fa-globe"></i> Website & Quản trị CMS - SCC Shop
                   </div>
                 </div>
 
-                <!-- Khung Skeleton Mẫu 2 -->
-                <div class="proof-item">
-                  <div class="skeleton-16-9">
-                    <i class="fa-brands fa-tiktok skeleton-icon"></i>
-                    <div class="skeleton-title">TikTok Shop & Plan Content DYNIK</div>
-                    <div class="skeleton-desc">Khung ảnh 16:9 - Chèn ảnh vận hành & kế hoạch content DYNIK</div>
+                <div class="proof-item" data-fullsrc="images/dynik-tiktok.png" data-caption="TikTok Shop & Kế hoạch Content - Brand DYNIK">
+                  <img src="images/dynik-tiktok.png" alt="TikTok Shop & Kế hoạch Content - Brand DYNIK" loading="lazy">
+                  <span class="proof-zoom-badge"><i class="fa-solid fa-magnifying-glass-plus"></i> Phóng to xem chi tiết</span>
+                  <div class="proof-caption">
+                    <i class="fa-brands fa-tiktok"></i> TikTok Shop & Content Brand DYNIK
                   </div>
                 </div>
               </div>
@@ -248,6 +245,24 @@
   <button class="back-to-top" id="back-to-top" aria-label="Quay lại đầu trang">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
+
+  <!-- LIGHTBOX MODAL PHÓNG TO ẢNH CHO HR -->
+  <div class="lightbox-modal" id="image-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Đóng phóng to">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img src="" alt="Phóng to minh chứng" class="lightbox-image" id="lightbox-img">
+      <div class="lightbox-info">
+        <span class="lightbox-caption" id="lightbox-caption"></span>
+        <div class="lightbox-actions">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="lightbox-link" id="lightbox-raw-link">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở ảnh gốc (độ phân giải cao)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 

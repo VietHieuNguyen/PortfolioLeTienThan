@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupMobileMenu();
   setupActiveNav();
   setupExperienceProofToggle();
+  setupImageLightbox();
   setupContactForm();
   setupScrollReveal();
   setupBackToTop();
@@ -350,5 +351,62 @@ function setupExperienceProofToggle() {
         this.innerHTML = '<i class="fa-regular fa-eye"></i> Xem chi tiết <i class="fa-solid fa-chevron-down"></i>';
       }
     });
+  });
+}
+
+/* ===== IMAGE LIGHTBOX MODAL ===== */
+function setupImageLightbox() {
+  const modal = document.getElementById("image-lightbox");
+  if (!modal) return;
+
+  const modalImg = document.getElementById("lightbox-img");
+  const captionEl = document.getElementById("lightbox-caption");
+  const rawLink = document.getElementById("lightbox-raw-link");
+  const closeBtn = document.getElementById("lightbox-close");
+
+  const openLightbox = (src, caption) => {
+    if (!src) return;
+    modalImg.src = src;
+    captionEl.textContent = caption || "";
+    rawLink.href = src;
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    setTimeout(() => {
+      if (!modal.classList.contains("active")) {
+        modalImg.src = "";
+      }
+    }, 300);
+  };
+
+  // Click on proof items opens lightbox
+  document.querySelectorAll(".proof-item").forEach((item) => {
+    item.addEventListener("click", function () {
+      const src = this.getAttribute("data-fullsrc") || this.querySelector("img")?.getAttribute("src");
+      const caption = this.getAttribute("data-caption") || this.querySelector(".proof-caption")?.textContent?.trim();
+      openLightbox(src, caption);
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeLightbox);
+  }
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal || e.target.classList.contains("lightbox-content")) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeLightbox();
+    }
   });
 }
